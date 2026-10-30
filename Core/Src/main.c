@@ -21,7 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "ETH_Register_if.h"
+#include "GPIO_Register_if.h"
+#include "RCC_Register_if.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -91,7 +93,7 @@ static void MX_TIM12_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART6_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+void ETH_RCC_GPIO_Init(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -150,7 +152,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  ETH_RCC_GPIO_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -162,6 +164,64 @@ int main(void)
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
+}
+
+void ETH_RCC_GPIO_Init(void)
+{
+	/*Initialize the Clock for the Ethernet and Corresponding GPIO Ports*/
+	RCC_AHB1ENR->ETHMACEN=1;
+	RCC_AHB1ENR->ETHMACRXEN=1;
+	RCC_AHB1ENR->ETHMACTXEN=1;
+
+	/*Initialize the Corresponding GPIO Pin's with respective functionality*/
+	RCC_AHB1ENR->GPIOAEN=1;
+	RCC_AHB1ENR->GPIOBEN=1;
+	RCC_AHB1ENR->GPIOCEN=1;
+
+
+	/* PA1 -	ETH_RMII_REF_CLK
+	 * PA2 -	ETH_MDIO
+	 * PA7 -	ETH_RMII_CRS_DV
+
+	 * PB11 -	ETH_RMII_TX_EN
+	 * PB12 -	ETH_RMII_TXD0
+	 * PB13 -	ETH_RMII_TXD1
+	 *
+	 * PC1 -	ETH_MDC
+	 * PC4 -	ETH_RMII_RXD0
+	 * PC5 -	ETH_RMII_RXD1
+	 *
+	 * Following were not used
+	 *
+	 * PG11 - 	ETH_RMII_TX_EN
+	 * PG13 -	ETH_RMII_TXD0
+	 * PG14 -	ETH_RMII_TXD1
+	 *
+	 */
+	 GPIOA_MODER->MODER1=11; /*11 -AF11 for Ethernet*/
+	 GPIOA_MODER->MODER2=11;
+	 GPIOA_MODER->MODER7=11;
+
+	 GPIOB_MODER->MODER11=11;
+	 GPIOB_MODER->MODER12=11;
+	 GPIOB_MODER->MODER13=11;
+
+	 GPIOC_MODER->MODER1=11;
+	 GPIOC_MODER->MODER4=11;
+	 GPIOC_MODER->MODER5=11;
+
+	 GPIOA_OSPEEDR->OSPEEDR1=3;/*3 - Very High Speed*/
+	 GPIOA_OSPEEDR->OSPEEDR2=3;
+	 GPIOA_OSPEEDR->OSPEEDR7=3;
+
+	 GPIOB_OSPEEDR->OSPEEDR11=3;
+	 GPIOB_OSPEEDR->OSPEEDR12=3;
+	 GPIOB_OSPEEDR->OSPEEDR13=3;
+
+	 GPIOC_OSPEEDR->OSPEEDR1=3;
+	 GPIOC_OSPEEDR->OSPEEDR4=3;
+	 GPIOC_OSPEEDR->OSPEEDR5=3;
+
 }
 
 /**
