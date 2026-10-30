@@ -1,0 +1,45 @@
+# ==========================================
+# STM32CubeIDE - Build output directories
+# ==========================================
+/Debug/
+/Release/
+/build/
+
+# ==========================================
+# Compiled object and dependency files
+# ==========================================
+*.o
+*.d
+*.elf
+*.hex
+*.bin
+*.map
+*.list
+*.lst
+*.su
+
+# ==========================================
+# Debugger and temporary files
+# ==========================================
+*.launch.tmp
+*.log
+*.tmp
+*.bak
+*.orig
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Eclipse / STM32CubeIDE workspace metadata
+# ==========================================
+.metadata/
+.recommenders/
+*.index
+
+# ==========================================
+# OS-generated files
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
