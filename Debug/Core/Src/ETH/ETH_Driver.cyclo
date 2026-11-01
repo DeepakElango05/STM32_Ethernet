@@ -1,0 +1,4 @@
+../Core/Src/ETH/ETH_Driver.c:15:6:ETH_RCC_GPIO_Init	1
+../Core/Src/ETH/ETH_Driver.c:85:6:ETH_Init	1
+../Core/Src/ETH/ETH_Driver.c:98:6:ETH_Read_PHY_AD	3
+../Core/Src/ETH/ETH_Driver.c:122:6:ETH_ReadWrite_MDIO	5
